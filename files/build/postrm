@@ -1,0 +1,38 @@
+#!/bin/sh
+# postrm script for karaf
+# based on script for sensu: https://github.com/sensu/sensu-build/blob/master/pkg_scripts/deb/postrm
+
+set -e
+
+NAME="karaf"
+GROUP=$NAME
+USER=$NAME
+
+# summary of how this script can be called and ordering:
+#  http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html
+#  http://www.proulx.com/~bob/debian/hints/DpkgScriptOrder
+
+purge_karaf_user_group() {
+    if getent passwd $USER  >/dev/null; then
+        deluser --system $USER || true
+    fi
+    if getent group $GROUP >/dev/null; then
+        delgroup --system --only-if-empty $GROUP
+    fi
+}
+
+case "$1" in
+    purge)
+        purge_karaf_user_group
+        ;;
+
+    remove|upgrade|abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+exit 0
