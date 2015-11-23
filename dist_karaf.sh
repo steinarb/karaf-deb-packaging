@@ -41,12 +41,11 @@ cd apache-karaf-${version}
 
 mv etc/* ../build/etc/karaf
 
-rm -rf bin/windows
 cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
-mv * ../build/usr/local/karaf
+mv * ../build/usr/local/karaf/
 
 #copy wrapper binaries files
-mkdir -p build/usr/local/karaf/lib/wrapper
+mkdir -p ../build/usr/local/karaf/lib/wrapper
 cp ${origdir}/files/wrapper/karaf-wrapper ../build/usr/local/karaf/bin/
 cp ${origdir}/files/wrapper/karaf.service ../build/usr/local/karaf/bin/
 cp ${origdir}/files/wrapper/libwrapper.so ../build/usr/local/karaf/lib/wrapper/
