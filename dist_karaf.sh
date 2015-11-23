@@ -29,7 +29,7 @@ mkdir -p build/etc/init
 mkdir -p build/etc/init.d
 mkdir -p build/etc/karaf
 mkdir -p build/var/log/karaf
-mkdir -p build/usr/local/karaf/lib/wrapper
+
 
 cp ${origdir}/files/config/default/karaf.default build/etc/default/karaf
 cp ${origdir}/files/config/init/karaf.init.d build/etc/init.d/karaf
@@ -46,6 +46,7 @@ cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
 mv * ../build/usr/local/karaf
 
 #copy wrapper binaries files
+mkdir -p build/usr/local/karaf/lib/wrapper
 cp ${origdir}/files/wrapper/karaf-wrapper ../usr/local/karaf/bin/karaf-wrapper
 cp ${origdir}/files/wrapper/karaf.service ../usr/local/karaf/bin/karaf.service
 cp ${origdir}/files/wrapper/libwrapper.so ../usr/local/karaf/lib/wrapper/libwrapper.so
