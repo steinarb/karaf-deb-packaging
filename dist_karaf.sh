@@ -47,11 +47,11 @@ mv * ../build/usr/local/karaf
 
 #copy wrapper binaries files
 mkdir -p build/usr/local/karaf/lib/wrapper
-cp ${origdir}/files/wrapper/karaf-wrapper ../usr/local/karaf/bin/
-cp ${origdir}/files/wrapper/karaf.service ../usr/local/karaf/bin/
-cp ${origdir}/files/wrapper/libwrapper.so ../usr/local/karaf/lib/wrapper/
-cp ${origdir}/files/wrapper/karaf-wrapper.jar ../usr/local/karaf/lib/wrapper/
-cp ${origdir}/files/wrapper/karaf-wrapper-main.jar ../usr/local/karaf/lib/wrapper/
+cp ${origdir}/files/wrapper/karaf-wrapper ../build/usr/local/karaf/bin/
+cp ${origdir}/files/wrapper/karaf.service ../build/usr/local/karaf/bin/
+cp ${origdir}/files/wrapper/libwrapper.so ../build/usr/local/karaf/lib/wrapper/
+cp ${origdir}/files/wrapper/karaf-wrapper.jar ../build/usr/local/karaf/lib/wrapper/
+cp ${origdir}/files/wrapper/karaf-wrapper-main.jar ../build/usr/local/karaf/lib/wrapper/
 
 cd ../build
 pushd usr/local/karaf
