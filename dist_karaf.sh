@@ -43,6 +43,7 @@ mv etc/* ../build/etc/karaf
 
 cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
 mv * ../build/usr/local/karaf/
+rmdir ../build/usr/local/karaf/etc
 
 #copy wrapper binaries files
 mkdir -p ../build/usr/local/karaf/lib/wrapper
