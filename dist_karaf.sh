@@ -10,7 +10,7 @@ url="https://karaf.apache.org/"
 arch="all"
 section="misc"
 license="Apache Software License 2.0"
-bin_package="apache-karaf-${version}.tgz"
+bin_package="apache-karaf-${version}.tar.gz"
 bin_download_url="http://apache.belnet.be/karaf/${version}/${bin_package}"
 origdir="$(pwd)"
 
