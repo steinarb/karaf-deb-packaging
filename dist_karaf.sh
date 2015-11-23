@@ -39,9 +39,10 @@ cp ${origdir}/files/config/init/karaf.init.d build/etc/init.d/karaf
 tar zxf ${origdir}/${bin_package}
 cd apache-karaf-${version}
 
+# Config files
 mv etc/* ../build/etc/karaf
-
 cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
+cp ${origdir}/files/config/etc/org.ops4j.pax.logging.cfg ../build/etc/karaf
 mv * ../build/usr/local/karaf/
 rmdir ../build/usr/local/karaf/etc
 

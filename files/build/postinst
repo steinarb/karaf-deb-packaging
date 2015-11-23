@@ -38,6 +38,7 @@ chown_karaf_dirs() {
     chown -R $USER:$GROUP /etc/karaf
     chown $USER:$GROUP /var/log/karaf
     chown -R $USER:$GROUP /usr/local/karaf
+    chmod 755 /usr/local/karaf/bin/karaf.service
 }
 
 case "$1" in
