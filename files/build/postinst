@@ -26,7 +26,6 @@ create_karaf_user_group() {
               --system \
               --disabled-login \
               --ingroup $GROUP \
-              --no-create-home \
               --gecos "Karaf service user" \
               --shell /bin/false \
               $USER  >/dev/null
