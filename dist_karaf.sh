@@ -4,7 +4,7 @@ set -e
 set -u
 name=karaf
 version=4.0.3
-package_version="-1"
+package_version="-2"
 description="Apache Karaf is a modern and polymorphic container."
 url="https://karaf.apache.org/"
 arch="all"
