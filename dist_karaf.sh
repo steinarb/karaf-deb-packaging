@@ -4,7 +4,7 @@ set -e
 set -u
 name=karaf
 version=4.0.3
-package_version="-2"
+package_version="-3"
 description="Apache Karaf is a modern and polymorphic container."
 url="https://karaf.apache.org/"
 arch="all"
@@ -43,6 +43,7 @@ cd apache-karaf-${version}
 mv etc/* ../build/etc/karaf
 cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
 cp ${origdir}/files/config/etc/org.ops4j.pax.logging.cfg ../build/etc/karaf
+cp ${origdir}/files/config/etc/org.ops4j.pax.mvn.cfg ../build/etc/karaf
 mv * ../build/usr/local/karaf/
 rmdir ../build/usr/local/karaf/etc
 
