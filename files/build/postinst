@@ -38,8 +38,10 @@ chown_karaf_dirs() {
     chown $USER:$GROUP /var/log/karaf
     chown -R $USER:$GROUP /usr/local/karaf
     chmod 755 /usr/local/karaf/bin/karaf.service
-    mv /usr/local/karaf/etc/* /etc/karaf/
-    rmdir /usr/local/karaf/etc
+    if [ -d "/usr/local/karaf/etc" ]; then
+      mv /usr/local/karaf/etc/* /etc/karaf/
+      rmdir /usr/local/karaf/etc
+    fi
     ln -s /etc/karaf /usr/local/karaf/etc
     chown $USER:$GROUP /usr/local/karaf/etc
 }
