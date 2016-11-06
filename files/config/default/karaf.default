@@ -15,7 +15,7 @@
 # export KARAF_REDIRECT # Enable/set the std/err redirection when using bin/start
 
 
-export JAVA_HOME=/usr/local/jdk18u45-oracle
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export KARAF_HOME=/usr/local/karaf
 export KARAF_DATA=${KARAF_HOME}/data
 export KARAF_ETC=/etc/karaf
