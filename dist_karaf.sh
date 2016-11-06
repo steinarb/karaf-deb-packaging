@@ -41,7 +41,7 @@ cd apache-karaf-${version}
 
 # Config files
 mv etc/* ../build/etc/karaf
-cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
+sed 's/^\(set.default.JAVA_HOME=\).*/\1\/usr\/lib\/jvm\/java-8-openjdk-amd64/' <${origdir}/files/config/etc/karaf-wrapper.conf >../build/etc/karaf/karaf-wrapper.conf
 cp ${origdir}/files/config/etc/org.ops4j.pax.logging.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/org.ops4j.pax.url.mvn.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/shell.init.script ../build/etc/karaf
