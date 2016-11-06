@@ -32,7 +32,7 @@ mkdir -p build/var/log/karaf
 
 
 cp ${origdir}/files/config/default/karaf.default build/etc/default/karaf
-sed 's/^#\(JAVA_HOME=\)/\1\/usr\/lib\/jvm\/java-8-openjdk-amd64/' <${origdir}/files/config/init/karaf.init.d >build/etc/init.d/karaf
+cp ${origdir}/files/config/init/karaf.init.d build/etc/init.d/karaf
 
 # Updated to use the Binary package
 
