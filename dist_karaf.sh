@@ -28,6 +28,7 @@ mkdir -p build/etc/default
 mkdir -p build/etc/init
 mkdir -p build/etc/init.d
 mkdir -p build/etc/karaf
+mkdir -p build/var/lib/karaf/data
 mkdir -p build/var/log/karaf
 
 
