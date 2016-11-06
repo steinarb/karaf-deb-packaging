@@ -17,6 +17,6 @@
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export KARAF_HOME=/usr/local/karaf
-export KARAF_DATA=${KARAF_HOME}/data
+export KARAF_DATA=/var/lib/karaf/data
 export KARAF_ETC=/etc/karaf
 export KARAF_BASE=${KARAF_HOME}
