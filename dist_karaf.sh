@@ -72,7 +72,7 @@ fpm -t deb \
     --config-files etc/karaf \
     -m "${USER}@localhost" \
     --prefix=/ \
-    -d oracle-j2sdk1.8 \
+    -d openjdk-8-jdk \
     --after-install ${origdir}/files/build/postinst \
     --after-remove ${origdir}/files/build/postrm \
     -s dir \
