@@ -42,20 +42,11 @@ cd apache-karaf-${version}
 
 # Config files
 mv etc/* ../build/etc/karaf
-cp ${origdir}/files/config/etc/karaf-wrapper.conf ../build/etc/karaf
 cp ${origdir}/files/config/etc/org.ops4j.pax.logging.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/org.ops4j.pax.url.mvn.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/shell.init.script ../build/etc/karaf
 mv * ../build/usr/local/karaf/
 rmdir ../build/usr/local/karaf/etc
-
-#copy wrapper binaries files
-mkdir -p ../build/usr/local/karaf/lib/wrapper
-cp ${origdir}/files/wrapper/karaf-wrapper ../build/usr/local/karaf/bin/
-cp ${origdir}/files/wrapper/karaf.service ../build/usr/local/karaf/bin/
-cp ${origdir}/files/wrapper/libwrapper.so ../build/usr/local/karaf/lib/wrapper/
-cp ${origdir}/files/wrapper/karaf-wrapper.jar ../build/usr/local/karaf/lib/wrapper/
-cp ${origdir}/files/wrapper/karaf-wrapper-main.jar ../build/usr/local/karaf/lib/wrapper/
 
 cd ../build
 pushd usr/local/karaf
