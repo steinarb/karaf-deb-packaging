@@ -6,6 +6,32 @@ Simple debian packaging for Apache Karaf
 ### Changelog
 
 
+# Differences to the original github project
+
+Since forking https://github.com/DemisR/karaf-deb-packaging I have made the following changes:
+
+1. Switched from oracle JDK 8, to openjdk 8
+2. Updated to karaf version 4.0.7 (the currently newest stable release)
+3. Use /var/lib/karaf/data instead of /usr/local/karaf/data
+4. Use package version "-1" instead of "-3" (this is the first 4.0.7 version of the package)
+5. Switched from using the the service wrapper (karaf-wrapper) to plain systemd start using the scripts and config from bin/contrib in the karaf 4.0.7 distro
+
+## What must be done when upgrading to a new karaf version
+
+1. Download and unpack the karaf tar gz file
+2. Uninstall the karaf deb package (because this procedure will overwrite /etc/karaf/karaf.conf)
+3. Cd to bin/contrib inside the unpacked karf file and run the following command as root (because the command overwrites /etc/karaf/karaf.conf) :
+   ```sh
+   $ ./karaf-service.sh -k /usr/local/karaf -d /var/lib/karaf/data -c /etc/karaf/karaf.conf -u karaf -l /var/log/karaf/karaf.log
+   ```
+4. Copy the generated files to the git project and commit them into git
+   ```sh
+   $ cp /etc/karaf/karaf.conf $HOME/git/karaf-deb-packaging/files/config/etc
+   $ cp karaf*.service $HOME/git/karaf-deb-packaging/files/files/lib/systemd/system
+   ```
+5. Update the karaf version in the dist_karaf.sh script
+6. Run the dist_karaf.sh script to create a .deb package for the new karaf version
+
 # Pre-requisites - Install fpm
 
 ```sh
