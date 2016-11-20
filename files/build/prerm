@@ -1,5 +1,7 @@
 #!/bin/sh
 # prerm script for karaf
+# Based on script found in https://github.com/sensu/sensu-build/blob/master/pkg_scripts/deb/prerm
+# (changed from init.d to systemd)
 #
 
 set -e
@@ -8,45 +10,18 @@ set -e
 #  http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html
 #  http://www.proulx.com/~bob/debian/hints/DpkgScriptOrder
 
-sensu_services="sensu-client sensu-server sensu-api"
 
-# try to stop any running sensu services (not all will be running)
-stop_sensu_services() {
-    for service in $sensu_services; do
-        if [ -x "/etc/init.d/$service" ]; then
-            if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-                invoke-rc.d $service stop || true
-            else
-                /etc/init.d/$service stop || true
-            fi
-        fi
-        if [ -L "/opt/sensu/service/$service" ]; then
-            rm /opt/sensu/service/$service
-        fi
-    done
+# try to stop any running karaf services
+stop_karaf_service() {
+    systemctl stop karaf.service
 
-    # some time for sensu services to stop
-    sleep 6
-
-    # stop sensu runsvdir (if configured)
-    if [ -f "/etc/init/sensu-runsvdir.conf" ]; then
-        stop sensu-runsvdir || true
-    fi
-    if [ -f "/etc/inittab" ]; then
-        if grep -q sensu-runsvdir /etc/inittab; then
-            sed "/sensu-runsvdir/d" /etc/inittab > /etc/inittab
-            init q
-            pkill -HUP -f /opt/sensu/embedded/bin/runsvdir || true
-        fi
-    fi
-    if [ -f "/etc/systemd/system/sensu-runsvdir.service" ]; then
-        systemctl stop sensu-runsvdir.service || true
-    fi
+    # some time for karaf services to stop
+    sleep 2
 }
 
 case "$1" in
     remove|purge)
-        stop_sensu_services
+        stop_karaf_service
         ;;
 
     upgrade|deconfigure)
