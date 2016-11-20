@@ -24,16 +24,11 @@ rm -rf karaf
 mkdir -p karaf
 cd karaf
 mkdir -p build/usr/local/karaf
-mkdir -p build/etc/default
-mkdir -p build/etc/init
-mkdir -p build/etc/init.d
+mkdir -p build/lib/systemd/system
 mkdir -p build/etc/karaf
 mkdir -p build/var/lib/karaf/data
 mkdir -p build/var/log/karaf
 
-
-cp ${origdir}/files/config/default/karaf.default build/etc/default/karaf
-cp ${origdir}/files/config/init/karaf.init.d build/etc/init.d/karaf
 
 # Updated to use the Binary package
 
@@ -42,6 +37,9 @@ cd apache-karaf-${version}
 
 # Config files
 mv etc/* ../build/etc/karaf
+cp ${origdir}/files/config/etc/karaf.conf ../build/etc/karaf
+cp ${origdir}/files/config/lib/systemd/system/karaf.service ../build/lib/systemd/system
+cp ${origdir}/files/config/lib/systemd/system/karaf@.service ../build/lib/systemd/system
 cp ${origdir}/files/config/etc/org.ops4j.pax.logging.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/org.ops4j.pax.url.mvn.cfg ../build/etc/karaf
 cp ${origdir}/files/config/etc/shell.init.script ../build/etc/karaf
@@ -66,6 +64,7 @@ fpm -t deb \
     --prefix=/ \
     -d openjdk-8-jdk \
     --after-install ${origdir}/files/build/postinst \
+    --before-remove ${origdir}/files/build/prerm \
     --after-remove ${origdir}/files/build/postrm \
     -s dir \
     -- .
