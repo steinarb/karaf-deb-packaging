@@ -52,7 +52,7 @@ $ ./dist_karaf.sh
 # Installation
 
 ```sh
-$ dpkg -i karaf_4.0.3-1_all.deb
+$ dpkg -i karaf_4.0.7-1_all.deb
 ```
 
 or if you have your own repo:
@@ -92,9 +92,9 @@ ssh -p 8101 karaf@localhost
 ---
 
 ## Package info
-Debian pkg: `karaf_4.0.3-1_all.deb`
+Debian pkg: `karaf_4.0.7-1_all.deb`
 Version :
-  - karaf 4.0.3
+  - karaf 4.0.7
 
 Init scripts:
   - /etc/init.d/karaf
