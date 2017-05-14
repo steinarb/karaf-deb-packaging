@@ -87,7 +87,7 @@ ssh -p 8101 karaf@localhost
 
 ## Tested Platforms
 
-* Debian Wheezy
+* Debian Jessie
 
 ---
 
