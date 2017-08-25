@@ -53,7 +53,12 @@ case "$1" in
         create_karaf_user_group
         chown_karaf_dirs
         deb-systemd-helper enable karaf.service
-        systemctl start karaf.service
+        if systemctl start karaf.service
+        then
+            echo "Started the karaf service"
+        else
+            echo "Failed to start karaf service"
+        fi
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

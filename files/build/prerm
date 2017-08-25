@@ -13,7 +13,12 @@ set -e
 
 # try to stop any running karaf services
 stop_karaf_service() {
-    systemctl stop karaf.service
+    if systemctl stop karaf.service
+    then
+       echo "Stopped karaf service"
+    else
+       echo "Failed to stop karaf service"
+    fi
 
     # some time for karaf services to stop
     sleep 2
