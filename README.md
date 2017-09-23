@@ -3,7 +3,13 @@ karaf-deb-packaging
 
 Simple debian packaging for Apache Karaf
 
-### Changelog
+Forked from https://github.com/DemisR/karaf-deb-packaging and modified to use openjdk instead of Oracle Java, and modified to use the provided startup scripts instead of the proprietary karaf-wrapper.
+
+
+# Tested Platforms
+
+* Debian Jessie, amd64 (karaf 4.0.7)
+* Debian Stretch, amd64 (karaf 4.0.7, karaf 4.1.1 and karaf 4.1.2)
 
 
 # Differences to the original github project
@@ -11,7 +17,7 @@ Simple debian packaging for Apache Karaf
 Since forking https://github.com/DemisR/karaf-deb-packaging I have made the following changes:
 
 1. Switched from oracle JDK 8, to openjdk 8
-2. Updated to karaf version 4.0.7 (the currently newest stable release)
+2. Updated to karaf version 4.0.7 (the currently newest stable release at the time of forking), later upgraded to karaf 4.1.1 and again upgraded to karaf 4.1.2
 3. Use /var/lib/karaf/data instead of /usr/local/karaf/data
 4. Use package version "-1" instead of "-3" (this is the first 4.0.7 version of the package)
 5. Switched from using the the service wrapper (karaf-wrapper) to plain systemd start using the scripts and config from bin/contrib in the karaf 4.0.7 distro
@@ -84,10 +90,6 @@ $ sudo update-rc.d karaf defaults 25
 ```sh
 ssh -p 8101 karaf@localhost
 ```
-
-## Tested Platforms
-
-* Debian Jessie
 
 ---
 
