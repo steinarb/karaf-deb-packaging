@@ -11,6 +11,27 @@ Forked from https://github.com/DemisR/karaf-deb-packaging and modified to use op
 * Debian Jessie, amd64 (karaf 4.0.7)
 * Debian Stretch, amd64 (karaf 4.0.7, karaf 4.1.1 and karaf 4.1.2)
 
+# How to create and install the deb package
+
+1. Install the pre-requisites (commands done as root)
+   ```sh
+   apt-get update
+   apt-get install git maven openjdk-8-jdk postgresql ruby ruby-dev build-essential
+   gem install fpm
+   ```
+2. How to create the .deb
+   ```sh
+   cd /tmp
+   git clone https://github.com/steinarb/karaf-deb-packaging
+   cd karaf-deb-packaging
+   ./dist_karaf.sh
+   mkdir -p /root/debs
+   cp *.deb /root/debs
+   ```
+3. How to install the .deb package
+   ```sh
+   dpkg --install karaf_4.1.2-1_all.deb
+   ```
 
 # Differences to the original github project
 
@@ -24,67 +45,29 @@ Since forking https://github.com/DemisR/karaf-deb-packaging I have made the foll
 
 ## What must be done when upgrading to a new karaf version
 
-1. Download and unpack the karaf tar gz file
-2. Uninstall the karaf deb package (because this procedure will overwrite /etc/karaf/karaf.conf)
-3. Cd to bin/contrib inside the unpacked karf file and run the following command as root (because the command overwrites /etc/karaf/karaf.conf) :
+1. Clone the project
    ```sh
-   $ ./karaf-service.sh -k /usr/local/karaf -d /var/lib/karaf/data -c /etc/karaf/karaf.conf -u karaf -l /var/log/karaf/karaf.log
+   cd /tmp
+   git clone https://github.com/steinarb/karaf-deb-packaging
    ```
-4. Copy the generated files to the git project and commit them into git
+2. Modify the karaf version in the /tmp/karaf-dep-packaging/dist_karaf.sh file:
    ```sh
-   $ cp /etc/karaf/karaf.conf $HOME/git/karaf-deb-packaging/files/config/etc
-   $ cp karaf*.service $HOME/git/karaf-deb-packaging/files/files/lib/systemd/system
+   name=karaf
+   version=4.1.2
+   package_version="-1"
+   ./dist_karaf.sh
    ```
-5. Update the karaf version in the dist_karaf.sh script
-6. Run the dist_karaf.sh script to create a .deb package for the new karaf version
+3. Build the deb package
+   ```sh
+   cd /tmp/karaf-deb-packaging
+   ./dist_karaf.sh
+   ```
+4. Uninstall the installed package and install the new package (using version 4.1.2 for the new package in the example, must be done as root):
+   ```sh
+   dpkg --purge karaf
+   dpkg --install /root/debs/karaf_4.1.2-1_all.deb
+   ```
 
-# Pre-requisites - Install fpm
-
-```sh
-$ sudo apt-get update
-$ sudo apt-get install ruby ruby-dev build-essential
-$ sudo gem install fpm
-```
-# Options
-
-You can change the karaf version in dist_karaf on new versions of both.
-
-# Usage
-
-```sh
-$ ./dist_karaf.sh
-```
-
-# Installation
-
-```sh
-$ dpkg -i karaf_4.0.7-1_all.deb
-```
-
-or if you have your own repo:
-
-```sh
-$ ~/gpg-agent-headless.sh
-$ reprepro -b /var/repositories/ includedeb trusty $@
-$ apt-get install karaf
-```
-Note: Installs and runs as user 'karaf'. Easy to change for your needs.
-
-## Post install
-
-```sh
-
-$ sudo update-rc.d karaf defaults 25
-
- Adding system startup for /etc/init.d/karaf ...
-   /etc/rc0.d/K25karaf -> ../init.d/karaf
-   /etc/rc1.d/K25karaf -> ../init.d/karaf
-   /etc/rc6.d/K25karaf -> ../init.d/karaf
-   /etc/rc2.d/S25karaf -> ../init.d/karaf
-   /etc/rc3.d/S25karaf -> ../init.d/karaf
-   /etc/rc4.d/S25karaf -> ../init.d/karaf
-   /etc/rc5.d/S25karaf -> ../init.d/karaf
-```
 
 ### Connect to instance
 ```sh
@@ -94,20 +77,20 @@ ssh -p 8101 karaf@localhost
 ---
 
 ## Package info
-Debian pkg: `karaf_4.0.7-1_all.deb`
+Debian pkg: `karaf_4.1.2-1_all.deb`
 Version :
-  - karaf 4.0.7
+  - karaf 4.1.2
 
-Init scripts:
-  - /etc/init.d/karaf
+Systemd service config:
+  - /lib/systemd/system/karaf.service
+  - /lib/systemd/system/karaf@.service
 
 Configuration:
   - /etc/karaf
   - /etc/default/karaf
 
 Logs:
-  - /usr/local/karaf/data/log/
-  - /var/log/karaf/
+  - /var/log/syslog
 
 Binaries:
   - /usr/local/karaf/bin/
