@@ -24,11 +24,11 @@ purge_karaf_user_group() {
 case "$1" in
     purge)
         purge_karaf_user_group
+        rm -rf /usr/local/karaf
         ;;
 
     remove|upgrade|abort-upgrade|abort-remove|abort-deconfigure)
         deb-systemd-helper update-state
-        rm -rf /usr/local/karaf
         ;;
 
     *)
