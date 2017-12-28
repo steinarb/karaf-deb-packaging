@@ -41,7 +41,7 @@ chown_karaf_dirs() {
     chmod 755 /lib/systemd/system/karaf.service
     chmod 755 /lib/systemd/system/karaf@.service
     if [ -d "/usr/local/karaf/etc" ]; then
-      rmdir /usr/local/karaf/etc
+      rm -rf /usr/local/karaf/etc
     fi
     ln -s /etc/karaf /usr/local/karaf/etc
     chown $USER:$GROUP /usr/local/karaf/etc
