@@ -1,44 +1,7 @@
 #!/bin/sh
-# postrm script for karaf
-# based on script for sensu: https://github.com/sensu/sensu-build/blob/master/pkg_scripts/deb/postrm
+# preinst script for karaf
 
-set -e
-
-NAME="karaf"
-GROUP=$NAME
-USER=$NAME
-
-# summary of how this script can be called and ordering:
-#  http://www.debian.org/doc/debian-policy/ch-maintainerscripts.html
-#  http://www.proulx.com/~bob/debian/hints/DpkgScriptOrder
-
-purge_karaf_user_group() {
-    if getent passwd $USER  >/dev/null; then
-        deluser --system $USER || true
-    fi
-    if getent group $GROUP >/dev/null; then
-        delgroup --system --only-if-empty $GROUP
-    fi
-}
-
-case "$1" in
-    purge)
-        purge_karaf_user_group
-        rm -rf /usr/local/karaf
-        ;;
-
-    remove|upgrade|abort-upgrade|abort-remove|abort-deconfigure)
-        deb-systemd-helper update-state
-        ;;
-
-    *)
-        echo "postinst called with unknown argument \`$1'" >&2
-        exit 1
-        ;;
-esac
-
-
-# Delete config files during uninstall and upgrade
+# Delete unmodified config files owned by karaf during uninstall and upgrade
 KARAF_CONF_FILES="\
  all.policy \
  config.properties \
@@ -84,5 +47,3 @@ KARAF_CONF_FILES="\
 for i in $KARAF_CONF_FILES ; do
     dpkg-maintscript-helper rm_conffile "/etc/karaf/${i}" "4.1.4-7" -- "$@"
 done
-
-exit 0

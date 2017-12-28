@@ -63,6 +63,7 @@ fpm -t deb \
     -m "${USER}@localhost" \
     --prefix=/ \
     -d openjdk-8-jdk \
+    --before-install ${origdir}/files/build/preinst \
     --after-install ${origdir}/files/build/postinst \
     --before-remove ${origdir}/files/build/prerm \
     --after-remove ${origdir}/files/build/postrm \

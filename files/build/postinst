@@ -48,11 +48,60 @@ chown_karaf_dirs() {
     chown $USER:$GROUP /usr/local/karaf/etc
 }
 
+
+# Delete config files during uninstall and upgrade
+KARAF_CONF_FILES="\
+ all.policy \
+ config.properties \
+ custom.properties \
+ distribution.info \
+ equinox-debug.properties \
+ java.util.logging.properties \
+ jmx.acl.cfg \
+ jmx.acl.java.lang.Memory.cfg \
+ jmx.acl.org.apache.karaf.bundle.cfg \
+ jmx.acl.org.apache.karaf.config.cfg \
+ jmx.acl.org.apache.karaf.security.jmx.cfg \
+ jmx.acl.osgi.compendium.cm.cfg \
+ jre.properties \
+ karaf.conf \
+ keys.properties \
+ org.apache.felix.eventadmin.impl.EventAdmin.cfg \
+ org.apache.felix.fileinstall-deploy.cfg \
+ org.apache.karaf.command.acl.bundle.cfg \
+ org.apache.karaf.command.acl.config.cfg \
+ org.apache.karaf.command.acl.feature.cfg \
+ org.apache.karaf.command.acl.jaas.cfg \
+ org.apache.karaf.command.acl.kar.cfg \
+ org.apache.karaf.command.acl.scope_bundle.cfg \
+ org.apache.karaf.command.acl.shell.cfg \
+ org.apache.karaf.command.acl.system.cfg \
+ org.apache.karaf.features.cfg \
+ org.apache.karaf.features.repos.cfg \
+ org.apache.karaf.jaas.cfg \
+ org.apache.karaf.kar.cfg \
+ org.apache.karaf.log.cfg \
+ org.apache.karaf.management.cfg \
+ org.apache.karaf.shell.cfg \
+ org.ops4j.pax.logging.cfg \
+ org.ops4j.pax.url.mvn.cfg \
+ profile.cfg \
+ scripts/shell.completion.script \
+ shell.init.script \
+ startup.properties \
+ system.properties \
+ users.properties"
+
+for i in $KARAF_CONF_FILES ; do
+    dpkg-maintscript-helper rm_conffile "/etc/karaf/${i}" "4.1.4-7" -- "$@"
+done
+
 case "$1" in
     configure)
         create_karaf_user_group
         chown_karaf_dirs
         deb-systemd-helper enable karaf.service
+        systemctl daemon-reload
         if systemctl start karaf.service
         then
             echo "Started the karaf service"
@@ -69,5 +118,6 @@ case "$1" in
         exit 1
         ;;
 esac
+
 
 exit 0
