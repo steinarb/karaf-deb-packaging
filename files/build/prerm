@@ -30,6 +30,7 @@ case "$1" in
         ;;
 
     upgrade|deconfigure)
+        stop_karaf_service
         ;;
 
     *)
