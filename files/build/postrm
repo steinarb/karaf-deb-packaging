@@ -82,7 +82,7 @@ KARAF_CONF_FILES="\
  users.properties"
 
 for i in $KARAF_CONF_FILES ; do
-    echo "preinst rm_conffile /etc/karaf/${i} 4.1.4-7 -- $@"
+    echo "postrm rm_conffile /etc/karaf/${i} 4.1.4-7 -- $@"
     dpkg-maintscript-helper rm_conffile "/etc/karaf/${i}" "4.1.4-7" -- "$@"
 done
 
