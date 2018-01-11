@@ -21,23 +21,6 @@ purge_karaf_user_group() {
     fi
 }
 
-case "$1" in
-    purge)
-        purge_karaf_user_group
-        rm -rf /usr/local/karaf
-        ;;
-
-    remove|upgrade|abort-upgrade|abort-remove|abort-deconfigure)
-        deb-systemd-helper update-state
-        ;;
-
-    *)
-        echo "postinst called with unknown argument \`$1'" >&2
-        exit 1
-        ;;
-esac
-
-
 # Delete config files during uninstall and upgrade
 KARAF_CONF_FILES="\
  all.policy \
@@ -85,5 +68,21 @@ for i in $KARAF_CONF_FILES ; do
     echo "postrm rm_conffile /etc/karaf/${i} 4.1.4-7 -- $@"
     dpkg-maintscript-helper rm_conffile "/etc/karaf/${i}" "4.1.4-7" -- "$@"
 done
+
+case "$1" in
+    purge)
+        purge_karaf_user_group
+        rm -rf /usr/local/karaf
+        ;;
+
+    remove|upgrade|abort-upgrade|abort-remove|abort-deconfigure)
+        deb-systemd-helper update-state
+        ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
 
 exit 0
