@@ -1,6 +1,10 @@
 karaf-deb-packaging
 ===================
 
+*Note*! I (steinarb) has stopped using this karaf debian packaging.  I have switched to https://github.com/steinarb/karaf-debian that uses native debian packaging tools, and is built from a karaf source tarball instead of using the karaf binary tarball.
+
+
+
 Simple debian packaging for Apache Karaf
 
 Forked from https://github.com/DemisR/karaf-deb-packaging and modified to use openjdk instead of Oracle Java, and modified to use the provided startup scripts instead of the proprietary karaf-wrapper.
